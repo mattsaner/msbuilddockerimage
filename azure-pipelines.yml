@@ -26,4 +26,5 @@ stages:
         command: build
         dockerfile: '$(Build.SourcesDirectory)/dockerfile'
         tags: |
-          $(tag)
+          cppMSBuild:latest
+          ppMSBuild:$(Build.BuildId)
