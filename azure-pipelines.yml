@@ -2,16 +2,9 @@
 # Build a Docker image
 # https://docs.microsoft.com/azure/devops/pipelines/languages/docker
 
-trigger:
-- main
-
-resources:
-- repo: self
-
-variables:
-  tag: '$(Build.BuildId)'
-
- pool:
+jobs:
+- job: Windows
+pool:
     vmImage: 'windows-latest'
-  steps:
+steps:
   - script: echo hello from Windows
