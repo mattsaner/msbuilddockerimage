@@ -4,7 +4,7 @@
 
 jobs:
 - job: Windows
-pool:
+  pool:
     vmImage: 'windows-latest'
-steps:
+  steps:
   - script: echo hello from Windows
