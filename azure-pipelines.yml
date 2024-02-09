@@ -14,11 +14,11 @@ variables:
   tag: '${{ variables.version }}-build-${{ variables.buildId }}' # Concatenating version and build ID.
 
 steps:
-- script: docker build -t $(imageName):$(tag) -f Dockerfile .
-  displayName: 'Build Docker image'
+#- script: docker build -t $(imageName):$(tag) -f Dockerfile .
+# displayName: 'Build Docker image'
 
-- script: docker login -u $(DOCKERHUB_USERNAME) -p $(DOCKERHUB_PASSWORD)
+- script: docker login -u $(DOCKERHUB_USERNAME) -p "$(DOCKERHUB_PASSWORD)"
   displayName: 'Login to Docker Hub'
 
-- script: docker push $(imageName):$(tag)
-  displayName: 'Push Docker image to Docker Hub'
+#- script: docker push $(imageName):$(tag)
+#  displayName: 'Push Docker image to Docker Hub'
