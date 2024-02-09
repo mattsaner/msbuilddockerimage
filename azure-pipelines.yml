@@ -1,30 +1,24 @@
-# Docker
-# Build a Docker image
-# https://docs.microsoft.com/azure/devops/pipelines/languages/docker
-
 trigger:
 - main
 
 resources:
 - repo: self
 
-variables:
-  tag: '$(Build.BuildId)'
+pool:
+  vmImage: 'windows-latest'
 
-stages:
-- stage: Build
-  displayName: Build image
-  jobs:
-  - job: Build
-    displayName: Build
-    pool:
-      vmImage: 'windows-latest'
-    steps:
-    - task: Docker@2
-      displayName: Build an image
-      inputs:
-        command: build
-        dockerfile: '$(Build.SourcesDirectory)/dockerfile'
-        tags: |
-          cppMSBuild:latest
-          ppMSBuild:$(Build.BuildId)
+variables:
+  imageName: '$(DOCKERHUB_USERNAME)/hearc' # This is your specific image name.
+  version: '1.0.0' # Example version. Adjust as necessary.
+  buildId: '$(Build.BuildId)' # Using Azure DevOps predefined variable for build ID.
+  tag: '${{ variables.version }}-build-${{ variables.buildId }}' # Concatenating version and build ID.
+
+steps:
+- script: docker build -t $(imageName):$(tag) -f Dockerfile .
+  displayName: 'Build Docker image'
+
+- script: docker login -u $(DOCKERHUB_USERNAME) -p $(DOCKERHUB_PASSWORD)
+  displayName: 'Login to Docker Hub'
+
+- script: docker push $(imageName):$(tag)
+  displayName: 'Push Docker image to Docker Hub'
