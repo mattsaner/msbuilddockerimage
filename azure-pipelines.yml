@@ -5,6 +5,6 @@
 jobs:
 - job: Windows
   pool:
-    vmImage: 'windows-latest'
+    vmImage: 'ubuntu-latest' #'windows-latest'
   steps:
   - script: echo hello from Windows
