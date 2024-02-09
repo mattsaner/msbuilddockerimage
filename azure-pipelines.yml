@@ -2,8 +2,7 @@
 # Build a Docker image
 # https://docs.microsoft.com/azure/devops/pipelines/languages/docker
 
-jobs:
-- job: Windows
+
   pool:
     vmImage: 'ubuntu-latest' #'windows-latest'
   steps:
