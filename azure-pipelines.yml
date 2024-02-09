@@ -4,6 +4,6 @@
 
 
   pool:
-    vmImage: 'ubuntu-latest' #'windows-latest'
+    vmImage: 'windows-latest'
   steps:
   - script: echo hello from Windows
