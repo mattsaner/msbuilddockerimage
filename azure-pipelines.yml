@@ -12,13 +12,13 @@ variables:
   version: '1.0.0' # Example version. Adjust as necessary.
   buildId: '$(Build.BuildId)' # Using Azure DevOps predefined variable for build ID.
   tag: '${{ variables.version }}-build-${{ variables.buildId }}' # Concatenating version and build ID.
-  group: Docker
+  group: Secrets
 
 steps:
 #- script: docker build -t $(imageName):$(tag) -f Dockerfile .
 # displayName: 'Build Docker image'
 
-- script: docker login -u $(DOCKERHUB_USERNAME) -p '$(DOCKERHUB_PASSWORD)'
+- script: docker login -u $(DOCKERHUB_USERNAME) -p $(DOCKERHUB_PASSWORD)
   displayName: 'Login to Docker Hub'
 
 #- script: docker push $(imageName):$(tag)
