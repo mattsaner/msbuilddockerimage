@@ -19,7 +19,7 @@ steps:
  displayName: 'Build Docker image'
 
 - script: docker login -u $(DH_USER) -p $(DH_PASS)  
-  displayName: 'Login to Docker Hub'
+ displayName: 'Login to Docker Hub'
 
 - script: docker push $(imageName):$(tag)
-  displayName: 'Push Docker image to Docker Hub'
+ displayName: 'Push Docker image to Docker Hub'
