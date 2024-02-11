@@ -18,7 +18,7 @@ steps:
 #- script: docker build -t $(imageName):$(tag) -f Dockerfile .
 # displayName: 'Build Docker image'
 
-- script: docker login -u $(DOCKERHUB_USERNAME) -p 
+- script: docker login -u $(DH_USER) -p $(DH_PASS)  
   displayName: 'Login to Docker Hub'
 
 #- script: docker push $(imageName):$(tag)
