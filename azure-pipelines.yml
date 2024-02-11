@@ -15,11 +15,11 @@ variables:
   group: Secrets
 
 steps:
-#- script: docker build -t $(imageName):$(tag) -f Dockerfile .
-# displayName: 'Build Docker image'
+- script: docker build -t $(imageName):$(tag) -f Dockerfile .
+ displayName: 'Build Docker image'
 
 - script: docker login -u $(DH_USER) -p $(DH_PASS)  
   displayName: 'Login to Docker Hub'
 
-#- script: docker push $(imageName):$(tag)
-#  displayName: 'Push Docker image to Docker Hub'
+- script: docker push $(imageName):$(tag)
+  displayName: 'Push Docker image to Docker Hub'
