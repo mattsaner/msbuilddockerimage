@@ -1,25 +1,30 @@
+# Trigger the pipeline on changes to the main branch
 trigger:
 - main
 
+# Specify the resources being used, in this case, the repository itself
 resources:
 - repo: self
 
+# Define the pool of virtual machines to use, specifying to use the latest Windows image
 pool:
   vmImage: 'windows-latest'
 
+# Define variables used throughout the pipeline
 variables:
-  imageName: 'msaner/hearc' # This is your specific image name.
-  version: '1.0.0' # Example version. Adjust as necessary.
-  buildId: '$(Build.BuildId)' # Using Azure DevOps predefined variable for build ID.
-  tag: '${{ variables.version }}-build-${{ variables.buildId }}' # Concatenating version and build ID.
-  group: Secrets
+  imageName: 'msaner/hearc' # The name of the Docker image to be built and pushed.
+  version: '1.0.0' # The version of the image, change as needed.
+  buildId: '$(Build.BuildId)' # Azure DevOps predefined variable to get the current build ID.
+  tag: '${{ variables.version }}-build-${{ variables.buildId }}' # Combine version and build ID to create a unique tag for the Docker image.
+  group: Secrets # Reference a variable group named 'Secrets' for storing sensitive information.
 
+# Steps to execute in the pipeline
 steps:
-- script: docker build -t $(imageName):$(tag) -f Dockerfile .
-  displayName: 'Build Docker image'
+- script: docker build -t $(imageName):$(tag) -f Dockerfile . # Build the Docker image using the Dockerfile in the root of the repository.
+  displayName: 'Build Docker image' # Display name for the step in the pipeline UI.
 
-- script: docker login -u $(DH_USER) -p $(DH_PASS)  
-  displayName: 'Login to Docker Hub'
+- script: docker login -u $(DH_USER) -p $(DH_PASS)  # Login to Docker Hub using credentials stored in variables or secrets.
+  displayName: 'Login to Docker Hub' # Display name for the step in the pipeline UI.
 
-- script: docker push $(imageName):$(tag)
-  displayName: 'Push Docker image to Docker Hub'
+- script: docker push $(imageName):$(tag) # Push the built Docker image to Docker Hub.
+  displayName: 'Push Docker image to Docker Hub' # Display name for the step in the pipeline UI.
